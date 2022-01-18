@@ -1,0 +1,174 @@
+.icon {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  text-rendering: auto;
+  line-height: 1em;
+  height: 1em;
+}
+
+.icon:before {
+  background-size: auto 1em;
+  background-repeat: no-repeat;
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  line-height: 1em;
+  content: "";
+  margin-right: 4px;
+  vertical-align: middle;
+}
+
+.icon-tensorflow:before {
+  background-image: url("../images/icons/tensorflow.png");
+}
+
+.icon-keras:before {
+  background-image: url("../images/icons/keras.png");
+}
+
+.icon-pytorch:before {
+  background-image: url("../images/icons/pytorch.png");
+}
+
+.icon-caffe2:before {
+  background-image: url("../images/icons/caffe2.png");
+}
+
+.icon-mxnet:before {
+  background-image: url("../images/icons/mxnet.png");
+}
+
+.icon-paddlepaddle:before {
+  width: 1.85em;
+  background-image: url("../images/icons/paddlepaddle.png");
+}
+
+.icon-sonnet:before {
+  background-image: url("../images/icons/sonnet.png");
+}
+
+.icon-c:before {
+  background-image: url("../images/icons/c.svg");
+}
+
+.icon-cpp:before {
+  background-image: url("../images/icons/cpp.svg");
+}
+
+.icon-go:before {
+  width: 2.2em;
+  background-size: auto 0.8em;
+  background-image: url("../images/icons/go.svg");
+}
+
+.icon-java:before {
+  background-image: url("../images/icons/java.svg");
+}
+
+.icon-python:before {
+  background-image: url("../images/icons/python.svg");
+}
+
+.icon-r:before {
+  width: 1.1em;
+  background-size: auto 0.8em;
+  background-image: url("../images/icons/r.svg");
+}
+
+.icon-julia:before {
+  width: 1.6em;
+  background-image: url("../images/icons/julia.svg");
+}
+
+.icon-ruby:before {
+  width: 0.8em;
+  background-size: auto 0.8em;
+  background-image: url("../images/icons/ruby.svg");
+}
+
+.icon-swift:before {
+  background-image: url("../images/icons/swift.svg");
+}
+
+.icon-nodejs:before {
+  width: 1.6em;
+  background-image: url("../images/icons/nodejs.svg");
+}
+
+.icon-restful:before {
+  background-image: url("../images/icons/restful.png");
+}
+
+.icon-macos:before {
+  background-image: url("../images/icons/macos.svg");
+}
+
+.icon-linux:before {
+  background-image: url("../images/icons/linux.svg");
+}
+
+.icon-windows:before {
+  background-image: url("../images/icons/windows.svg");
+}
+
+.icon-adobe:before {
+  width: 1.2em;
+  background-image: url("../images/icons/adobe.svg");
+}
+
+.icon-airbnb:before {
+  background-image: url("../images/icons/airbnb.svg");
+}
+
+.icon-apple:before {
+  background-image: url("../images/icons/apple.svg");
+}
+
+.icon-facebook:before {
+  background-image: url("../images/icons/facebook.svg");
+}
+
+.icon-firefox:before {
+  background-image: url("../images/icons/firefox.svg");
+}
+
+.icon-google:before {
+  background-image: url("../images/icons/google.svg");
+}
+
+.icon-ibm:before {
+  width: 2.4em;
+  background-image: url("../images/icons/ibm.svg");
+}
+
+.icon-microsoft:before {
+  background-image: url("../images/icons/microsoft.svg");
+}
+
+.icon-salesforce:before {
+  width: 1.5em;
+  background-image: url("../images/icons/salesforce.svg");
+}
+
+.icon-wechat:before {
+  width: 1.2em;
+  background-image: url("../images/icons/wechat.svg");
+}
+
+.icon-alibaba:before {
+  width: 1.8em;
+  background-image: url("../images/icons/alibaba.png");
+}
+
+.icon-ant-group:before {
+  width: 0.8em;
+  background-image: url("../images/icons/ant-group.png");
+}
+
+.icon-qq:before {
+  width: 0.8em;
+  background-image: url("../images/icons/qq.png");
+}
