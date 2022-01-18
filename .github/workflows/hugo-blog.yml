@@ -1,0 +1,36 @@
+name: hugo-blog
+
+on:
+  push:
+    branches:
+      - main  # 博客根目录的默认分支，这里是main，有时也是master
+  pull_request:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-20.04
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.ref }}
+    steps:
+      - uses: actions/checkout@v2
+        with:               # 如果你安装主题时用的是git submodule add
+          submodules: true  # 那么这三行不必注释掉，这一行填写 true
+          fetch-depth: 0    # Fetch all history for .GitInfo and .Lastmod
+
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v2
+        with:
+          hugo-version: '0.92.0'  # 填写你的hugo版本，可用hugo version查看
+          extended: false         # 如果你使用的不是extended版本的hugo，将true改为false
+
+      - name: Build
+        run: hugo --minify
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        if: ${{ github.ref == 'refs/heads/main' }}  # 注意填写main或者master
+        with:
+          personal_token: ${{ secrets.PERSONAL_TOKEN }} # 如果secret取了其他名称，将PERSONAL_TOKEN替换掉
+          external_repository: Winston-Gu/Winston-Gu.github.io # 填写远程仓库，不一定是这个格式，按照自己的情况写 
+          publish_dir: ./public
+          cname: valhalls.me       # 填写你的自定义域名。如果没有用自定义域名，注释掉这行
