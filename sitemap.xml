@@ -2,19 +2,25 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://valhallas.me/blogs/2022/01/24/%E5%BD%B1%E8%AF%84-munich-the-edge-of-war2021/</loc>
-    <lastmod>2022-01-24T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://valhallas.me/categories/</loc>
-    <lastmod>2022-01-24T00:00:00+00:00</lastmod>
+    <lastmod>2022-02-01T00:00:01+08:00</lastmod>
   </url><url>
     <loc>https://valhallas.me/</loc>
-    <lastmod>2022-01-24T00:00:00+00:00</lastmod>
+    <lastmod>2022-02-01T00:00:01+08:00</lastmod>
   </url><url>
     <loc>https://valhallas.me/tags/</loc>
-    <lastmod>2022-01-24T00:00:00+00:00</lastmod>
+    <lastmod>2022-02-01T00:00:01+08:00</lastmod>
   </url><url>
-    <loc>https://valhallas.me/blogs/</loc>
+    <loc>https://valhallas.me/categories/%E5%8E%86%E5%8F%B2/</loc>
+    <lastmod>2022-02-01T00:00:01+08:00</lastmod>
+  </url><url>
+    <loc>https://valhallas.me/tags/%E6%98%A5%E7%A7%8B/</loc>
+    <lastmod>2022-02-01T00:00:01+08:00</lastmod>
+  </url><url>
+    <loc>https://valhallas.me/blogs/2022/02/123/</loc>
+    <lastmod>2022-02-01T00:00:01+08:00</lastmod>
+  </url><url>
+    <loc>https://valhallas.me/blogs/2022/01/%E5%BD%B1%E8%AF%84-munich-the-edge-of-war2021/</loc>
     <lastmod>2022-01-24T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://valhallas.me/tags/%E5%8E%86%E5%8F%B2/</loc>
@@ -26,7 +32,7 @@
     <loc>https://valhallas.me/categories/%E5%BD%B1%E8%AF%84/</loc>
     <lastmod>2022-01-24T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://valhallas.me/blogs/2022/01/24/%E6%97%A7%E6%96%87-2021%E9%AB%98%E8%80%83%E4%BD%9C%E6%96%87%E4%BA%BA%E6%B0%91-%E5%8F%AA%E6%9C%89%E4%BA%BA%E6%B0%91/</loc>
+    <loc>https://valhallas.me/blogs/2022/01/%E6%97%A7%E6%96%87-2021%E9%AB%98%E8%80%83%E4%BD%9C%E6%96%87%E4%BA%BA%E6%B0%91-%E5%8F%AA%E6%9C%89%E4%BA%BA%E6%B0%91/</loc>
     <lastmod>2022-01-24T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://valhallas.me/categories/%E9%9A%8F%E7%AC%94/</loc>
@@ -38,7 +44,7 @@
     <loc>https://valhallas.me/tags/%E4%BC%91%E9%97%B2/</loc>
     <lastmod>2022-01-21T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://valhallas.me/blogs/2022/01/21/%E4%BD%BF%E7%94%A8katago%E4%B8%8B%E5%9B%B4%E6%A3%8B/</loc>
+    <loc>https://valhallas.me/blogs/2022/01/%E4%BD%BF%E7%94%A8katago%E4%B8%8B%E5%9B%B4%E6%A3%8B/</loc>
     <lastmod>2022-01-21T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://valhallas.me/tags/%E5%9B%B4%E6%A3%8B/</loc>
@@ -53,7 +59,10 @@
     <loc>https://valhallas.me/tags/%E6%8A%80%E6%9C%AF/</loc>
     <lastmod>2022-01-21T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://valhallas.me/blogs/2022/01/18/%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E6%96%87/</loc>
+    <loc>https://valhallas.me/blogs/</loc>
+    <lastmod>2022-01-18T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://valhallas.me/blogs/2022/01/%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E6%96%87/</loc>
     <lastmod>2022-01-18T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://valhallas.me/about/</loc>
