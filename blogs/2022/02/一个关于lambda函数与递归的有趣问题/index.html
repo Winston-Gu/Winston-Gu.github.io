@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+        <title>一个关于lambda函数与递归的有趣问题 - 介涟</title>
+
+    <meta name="referrer" content="no-referrer">
+    
+    <meta property="og:title" content="一个关于lambda函数与递归的有趣问题 - 介涟">
+    <meta name="description" property="og:description" content="在20Fall UCB CS61A的HW2中有这样一道有趣的问题： The recursive factorial function can be written as a single expression by using a conditional expression. &gt;&gt;&gt; fact = lambda n: 1 if n == 1 else mul(n, fact(sub(n, 1))) &gt;&gt;&gt; fact(5) 120 However, this implementation relies on the fact (no">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="介涟">
+    <meta property="og:url" content="https://valhallas.me/blogs/2022/02/%E4%B8%80%E4%B8%AA%E5%85%B3%E4%BA%8Elambda%E5%87%BD%E6%95%B0%E4%B8%8E%E9%80%92%E5%BD%92%E7%9A%84%E6%9C%89%E8%B6%A3%E9%97%AE%E9%A2%98/">
+
+    
+    
+    
+    
+    <meta name="author" property="article:author" content="顾介涟">
+    
+    
+    
+    <meta name="date" property="article:published_time" content="2022-02-03" scheme="YYYY-MM-DD">
+    
+    
+    <meta name="date" property="article:modified_time" content="2022-02-03" scheme="YYYY-MM-DD">
+    
+
+    
+    <meta name="keywords" property="article:tag" content ="Python,技术">
+    
+    
+    <meta name="theme-color" content="#0d0d0d">
+    
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/web/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/web/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="/images/web/favicon-48x48.png">
+    <link rel="icon" type="image/png" sizes="62x62" href="/images/web/favicon-62x62.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/images/web/favicon-192x192.png">
+    <link rel="apple-touch-icon" size="192x192" href="/images/web/icon-192x192.png">
+    <link rel="manifest" href="/manifest.json">
+        
+    
+
+    
+
+    <script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https://valhallas.me/blogs"
+        },
+        "name": "一个关于lambda函数与递归的有趣问题",
+        "headline": "一个关于lambda函数与递归的有趣问题",
+        "description" : "在20Fall UCB CS61A的HW2中有这样一道有趣的问题： The recursive factorial function can be written as a single expression by using a conditional expression. \u0026gt;\u0026gt;\u0026gt; fact = lambda n: 1 if n == 1 else mul(n, fact(sub(n, 1))) \u0026gt;\u0026gt;\u0026gt; fact(5) 120 However, this implementation relies on the fact (no",
+        "genre": [
+            "编程"
+        ],
+        "datePublished": "2022-02-03",
+        "dateModified": "2022-02-03",
+        "wordCount": "545",
+        "keywords": [
+            "Python", "技术"
+        ],
+        "image": [
+            
+        ],
+        "author": {
+            "@type": "Person",
+            "name": "顾介涟"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "顾介涟",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://valhallas.me/images/web/publisher-logo.png"
+            }
+        },
+        "url": "https://valhallas.me/blogs/2022/02/%E4%B8%80%E4%B8%AA%E5%85%B3%E4%BA%8Elambda%E5%87%BD%E6%95%B0%E4%B8%8E%E9%80%92%E5%BD%92%E7%9A%84%E6%9C%89%E8%B6%A3%E9%97%AE%E9%A2%98/"
+    }
+    </script>
+    
+
+    <script src='/jquery//jquery.min.js'></script>
+<script src='/js-cookie//js.cookie.min.js'></script>
+
+<link rel="stylesheet" type="text/css" href="/MaterialDesign-Webfont//css/materialdesignicons.min.css">
+
+
+
+
+
+<link rel="stylesheet" type="text/css" href="/prism//themes/prism.min.css">
+
+<link rel="stylesheet" type="text/css" href="/prism//themes/prism-.min.css">
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-ZM5Q0RXP96"></script>
+<script>
+if (window.location.hostname != "127.0.0.1" && window.location.hostname != "localhost") {
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-ZM5Q0RXP96');
+}
+</script>
+
+
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+
+<link rel="stylesheet" type="text/css" href="/css/fonts.css" />
+<link rel="stylesheet" type="text/css" href="/css/style.css">
+<link rel="stylesheet" type="text/css" href="/css/light.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" id="dark-mode-style" disabled="disabled">
+<link rel="stylesheet" type="text/css" href="/css/icons.css">
+<link rel="stylesheet" type="text/css" href="/css/print.css">
+
+  </head>
+
+  
+  <body class="blogs">
+    <header class="masthead">
+      
+
+<div class="logo"></div>
+<p class="slogan">但開風氣不爲師</p>
+      <nav class="menu">
+  <ul>
+  
+  
+  
+    
+  
+  
+    <li><a href="/">首页</a></li>
+  
+    <li><a href="/blogs/">博文</a></li>
+  
+    <li><a href="/categories/">分类</a></li>
+  
+    <li><a href="/tags/">标签</a></li>
+  
+    <li class="menu-separator"><span>&nbsp;</span></li>
+  
+  
+
+
+<li class="menu-separator"><span>&nbsp;</span></li>
+
+<li><a href="/blogs/index.xml" target="_blank" type="application/rss+xml" title="RSS feed">订阅</a></li>
+
+<li><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/deed.zh" target="_blank" title="Attribution-NonCommercial-ShareAlike 4.0 International">版权</a></li>
+
+
+  <li class="light-dark-mode no-border-bottom"><a id="light-dark-mode-action"><span id="light-dark-mode-icon" class="mdi mdi-weather-night"></span></a></li>
+  </ul>
+</nav>
+
+      <script src="/js/toggle-theme.js"></script>
+    </header>
+
+    <article class="main">
+      <header class="title">
+      
+
+<h1>一个关于lambda函数与递归的有趣问题</h1>
+
+
+
+
+
+
+
+<h3>顾介涟 / 
+2022-02-03</h3>
+
+
+
+<h3 class="post-meta">
+
+
+<strong>分类: </strong>
+<a href="/categories/%E7%BC%96%E7%A8%8B">编程</a>
+
+
+
+
+/
+<br> 
+
+
+
+
+<strong>标签: </strong>
+<span>Python</span>, <span>技术</span>
+
+
+
+
+/
+<br> 
+
+
+<strong>字数: </strong>
+545
+</h3>
+
+
+
+<hr>
+
+
+      </header>
+
+
+
+
+<p>在<a href="https://inst.eecs.berkeley.edu/~cs61a/fa20/hw/hw02/#q4" rel="noreferrer" target="_blank">20Fall UCB CS61A的HW2</a>中有这样一道有趣的问题：</p>
+
+<p>The recursive factorial function can be written as a single expression by using a conditional expression.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">&gt;&gt;&gt; fact = lambda n: 1 if n == 1 else mul(n, fact(sub(n, 1)))
+&gt;&gt;&gt; fact(5)
+120</code></pre></div>
+<p>However, this implementation relies on the fact (no pun intended) that <code>fact</code> has a name, to which we refer in the body of <code>fact</code>. To write a recursive function, we have always given it a name using a <code>def</code> or assignment statement so that we can refer to the function within its own body. In this question, your job is to define fact recursively without giving it a name!</p>
+
+<p>Write an expression that computes <code>n</code> factorial using only call expressions, conditional expressions, and lambda expressions (no assignment or def statements). <em>Note in particular that you are not allowed to use <code>make_anonymous_factorial</code> in your return expression.</em> The <code>sub</code> and <code>mul</code> functions from the <code>operator</code> module are the only built-in functions required to solve this problem:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#007020;font-weight:bold">from</span> <span style="color:#0e84b5;font-weight:bold">operator</span> <span style="color:#007020;font-weight:bold">import</span> sub, mul
+
+<span style="color:#007020;font-weight:bold">def</span> <span style="color:#06287e">make_anonymous_factorial</span>():
+    <span style="color:#4070a0">&#34;&#34;&#34;Return the value of an expression that computes factorial.
+</span><span style="color:#4070a0">
+</span><span style="color:#4070a0">    &gt;&gt;&gt; make_anonymous_factorial()(5)
+</span><span style="color:#4070a0">    120
+</span><span style="color:#4070a0">    &gt;&gt;&gt; from construct_check import check
+</span><span style="color:#4070a0">    &gt;&gt;&gt; # ban any assignments or recursion
+</span><span style="color:#4070a0">    &gt;&gt;&gt; check(HW_SOURCE_FILE, &#39;make_anonymous_factorial&#39;, [&#39;Assign&#39;, &#39;AugAssign&#39;, &#39;FunctionDef&#39;, &#39;Recursion&#39;])
+</span><span style="color:#4070a0">    True
+</span><span style="color:#4070a0">    &#34;&#34;&#34;</span>
+    <span style="color:#007020;font-weight:bold">return</span> <span style="color:#4070a0">&#39;YOUR_EXPRESSION_HERE&#39;</span></code></pre></div>
+<p>问题的核心在于：在没有函数名的情况下，如何在递归中调用这个函数呢？</p>
+
+<p>在思考后，我采取了High-order Function的方法，定义一个将自身作为参数的函数。从更深层次的角度来讲，这不过是将“函数”的Abstraction程度降低了一层，讲“函数寻址”这一行为显式地实现了。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#007020;font-weight:bold">from</span> <span style="color:#0e84b5;font-weight:bold">operator</span> <span style="color:#007020;font-weight:bold">import</span> sub, mul
+
+<span style="color:#007020;font-weight:bold">def</span> <span style="color:#06287e">make_anonymous_factorial</span>():
+    <span style="color:#007020;font-weight:bold">def</span> <span style="color:#06287e">function</span>(x, function):
+    	<span style="color:#007020;font-weight:bold">if</span>(x <span style="color:#666">==</span> <span style="color:#40a070">1</span>):
+    		<span style="color:#007020;font-weight:bold">return</span> <span style="color:#40a070">1</span>
+        <span style="color:#007020;font-weight:bold">else</span>:
+            <span style="color:#007020;font-weight:bold">return</span> function(x <span style="color:#666">-</span> <span style="color:#40a070">1</span>, function) <span style="color:#666">*</span> x
+    <span style="color:#007020;font-weight:bold">return</span> <span style="color:#007020;font-weight:bold">lambda</span> n : function(n, function)</code></pre></div>
+<p>经验证，结果正确。只不过题目要求不能出现def函数的行为，因而我们将<code>function(x, function)</code>函数改写为lambda形式：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#007020;font-weight:bold">lambda</span> x, function : <span style="color:#40a070">1</span> <span style="color:#007020;font-weight:bold">if</span> x <span style="color:#666">==</span> <span style="color:#40a070">1</span> <span style="color:#007020;font-weight:bold">else</span> x <span style="color:#666">*</span> function(x <span style="color:#666">-</span> <span style="color:#40a070">1</span>, function)</code></pre></div>
+<p>因而我们可以这样完成这道题目：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#007020;font-weight:bold">from</span> <span style="color:#0e84b5;font-weight:bold">operator</span> <span style="color:#007020;font-weight:bold">import</span> sub, mul
+
+<span style="color:#007020;font-weight:bold">def</span> <span style="color:#06287e">make_anonymous_factorial</span>():
+    <span style="color:#007020;font-weight:bold">return</span> <span style="color:#007020;font-weight:bold">lambda</span> n : (<span style="color:#007020;font-weight:bold">lambda</span> x, function : <span style="color:#40a070">1</span> <span style="color:#007020;font-weight:bold">if</span> x <span style="color:#666">==</span> <span style="color:#40a070">1</span> <span style="color:#007020;font-weight:bold">else</span> x <span style="color:#666">*</span> function(x <span style="color:#666">-</span> <span style="color:#40a070">1</span>, function))(n, <span style="color:#007020;font-weight:bold">lambda</span> x, function : <span style="color:#40a070">1</span> <span style="color:#007020;font-weight:bold">if</span> x <span style="color:#666">==</span> <span style="color:#40a070">1</span> <span style="color:#007020;font-weight:bold">else</span> x <span style="color:#666">*</span> function(x <span style="color:#666">-</span> <span style="color:#40a070">1</span>, function))</code></pre></div>
+<p>经验证，结果正确。</p>
+
+
+
+
+
+  <footer>
+  
+<nav class="post-nav">
+  <span class="nav-prev">&larr; <a href="/blogs/2022/02/123/">鼎之輕重，未可問也</a></span>
+  <span class="nav-next"></span>
+</nav>
+<script type="text/javascript">
+document.addEventListener('keyup', function(e) {
+  if (e.target.nodeName.toUpperCase() != 'BODY') return;
+  var url = false;
+  if (e.which == 37) {  
+    
+    url = '\/blogs\/2022\/02\/123\/';
+    
+  } else if (e.which == 39) {  
+    
+  }
+  if (url) window.location = url;
+});
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="/prism//prism.min.js"></script>
+<script src="/prism//plugins/autoloader/prism-autoloader.min.js"></script>
+
+<script>
+    (function() {
+        if (!self.Prism) {
+            return;
+        }
+
+        Prism.languages.dos = Prism.languages.powershell;
+        Prism.languages.gremlin = Prism.languages.groovy;
+
+        var Languages = {
+            'r': 'R', 'python': 'Python', 'xml': 'XML', 'html': 'HTML',
+            'yaml': 'YAML', 'latex': 'LaTeX', 'tex': 'TeX',
+            'powershell': 'PowerShell', 'javascript': 'JavaScript',
+            'dos': 'DOS', 'qml': 'QML', 'json': 'JSON', 'bash': 'Bash',
+            'text': 'Text', 'txt': 'Text', 'sparql': 'SPARQL',
+            'gremlin': 'Gremlin', 'cypher': 'Cypher', 'ngql': 'nGQL',
+            'shell': 'Shell', 'sql': 'SQL', 'apacheconf': 'Apache Configuration'
+        };
+
+        Prism.hooks.add('before-highlight', function(env) {
+        	var language = Languages[env.language] || env.language;
+        	env.element.setAttribute('data-language', language);
+        });
+    })();
+</script>
+
+
+
+
+<script async src="/js/fix-toc.js"></script>
+<script async src="/js/center-img.js"></script>
+<script async src="/js/right-quote.js"></script>
+<script async src="/js/fix-footnote.js"></script>
+<script async src="/js/external-link.js"></script>
+<script async src="/js/alt-title.js"></script>
+<script src="/js/no-highlight.js"></script>
+<script src="/js/math-code.js"></script>
+
+
+
+
+
+
+
+
+<script async src="/js/load-typekit.js"></script>
+
+<script src="/lazysizes//lazysizes.min.js"></script>
+
+<script src="/vanilla-back-to-top@/dist/vanilla-back-to-top.min.js"></script>
+<script>
+addBackToTop({
+  diameter: 48
+})
+</script>
+
+
+
+  <hr>
+  <div class="copyright no-border-bottom">
+    <div class="copyright-author-year">
+      <span>&copy; 2022-2022 Winston Gu</span>
+    </div>
+    <div class="copyright-links">
+      <a href="https://github.com/Winston-Gu" rel="noreferrer" target="_blank">Github</a>
+      <span> · </span>
+      <a href="https://twitter.com/WinstonGu_" rel="noreferrer" target="_blank">Twitter</a>
+      <span> · </span>
+      <a href="https://t.me/WinstonGu" rel="noreferrer" target="_blank">Telegram</a>
+      <span> · </span>
+      <a href="https://www.zhihu.com/people/ji-e-yi-zhu-jia-93" rel="noreferrer" target="_blank">Zhihu</a>
+      <span> · </span>
+      <a href="mailto:winstongu20@gmail.com" rel="noreferrer" target="_blank">Mail</a>
+      
+    </div>
+    <div>
+        <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/3.0/"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/3.0/88x31.png" /></a><br />本作品采用<a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/3.0/">自由转载-非商用-非衍生-保持署名(CC BY-NC-ND 3.0)版权许可协议.</a>
+    </div>
+  </div>
+  </footer>
+  </article>
+  </body>
+</html>
+

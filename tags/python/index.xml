@@ -5,15 +5,15 @@
     <description>Recent content in Python on 介涟</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 03 Feb 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 03 Feb 2022 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://valhallas.me/tags/python/" rel="self" type="application/rss+xml" />
     
     <item>
       <title>一个关于lambda函数与递归的有趣问题</title>
-      <link>https://valhallas.me/blogs/2020/02/%E4%B8%80%E4%B8%AA%E5%85%B3%E4%BA%8Elambda%E5%87%BD%E6%95%B0%E4%B8%8E%E9%80%92%E5%BD%92%E7%9A%84%E6%9C%89%E8%B6%A3%E9%97%AE%E9%A2%98/</link>
-      <pubDate>Mon, 03 Feb 2020 00:00:00 +0000</pubDate>
+      <link>https://valhallas.me/blogs/2022/02/%E4%B8%80%E4%B8%AA%E5%85%B3%E4%BA%8Elambda%E5%87%BD%E6%95%B0%E4%B8%8E%E9%80%92%E5%BD%92%E7%9A%84%E6%9C%89%E8%B6%A3%E9%97%AE%E9%A2%98/</link>
+      <pubDate>Thu, 03 Feb 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://valhallas.me/blogs/2020/02/%E4%B8%80%E4%B8%AA%E5%85%B3%E4%BA%8Elambda%E5%87%BD%E6%95%B0%E4%B8%8E%E9%80%92%E5%BD%92%E7%9A%84%E6%9C%89%E8%B6%A3%E9%97%AE%E9%A2%98/</guid>
+      <guid>https://valhallas.me/blogs/2022/02/%E4%B8%80%E4%B8%AA%E5%85%B3%E4%BA%8Elambda%E5%87%BD%E6%95%B0%E4%B8%8E%E9%80%92%E5%BD%92%E7%9A%84%E6%9C%89%E8%B6%A3%E9%97%AE%E9%A2%98/</guid>
       <description>
         <![CDATA[
         <p>在<a href="https://inst.eecs.berkeley.edu/~cs61a/fa20/hw/hw02/#q4" rel="noreferrer" target="_blank">20Fall UCB CS61A的HW2</a>中有这样一道有趣的问题：</p>
