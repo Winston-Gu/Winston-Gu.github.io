@@ -202,5 +202,60 @@
       </description>
     </item>
     
+    <item>
+      <title>一个关于lambda函数与递归的有趣问题</title>
+      <link>https://valhallas.me/blogs/2020/02/%E4%B8%80%E4%B8%AA%E5%85%B3%E4%BA%8Elambda%E5%87%BD%E6%95%B0%E4%B8%8E%E9%80%92%E5%BD%92%E7%9A%84%E6%9C%89%E8%B6%A3%E9%97%AE%E9%A2%98/</link>
+      <pubDate>Mon, 03 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://valhallas.me/blogs/2020/02/%E4%B8%80%E4%B8%AA%E5%85%B3%E4%BA%8Elambda%E5%87%BD%E6%95%B0%E4%B8%8E%E9%80%92%E5%BD%92%E7%9A%84%E6%9C%89%E8%B6%A3%E9%97%AE%E9%A2%98/</guid>
+      <description>
+        <![CDATA[
+        <p>在<a href="https://inst.eecs.berkeley.edu/~cs61a/fa20/hw/hw02/#q4" rel="noreferrer" target="_blank">20Fall UCB CS61A的HW2</a>中有这样一道有趣的问题：</p>
+
+<p>The recursive factorial function can be written as a single expression by using a conditional expression.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">&gt;&gt;&gt; fact = lambda n: 1 if n == 1 else mul(n, fact(sub(n, 1)))
+&gt;&gt;&gt; fact(5)
+120</code></pre></div>
+<p>However, this implementation relies on the fact (no pun intended) that <code>fact</code> has a name, to which we refer in the body of <code>fact</code>. To write a recursive function, we have always given it a name using a <code>def</code> or assignment statement so that we can refer to the function within its own body. In this question, your job is to define fact recursively without giving it a name!</p>
+
+<p>Write an expression that computes <code>n</code> factorial using only call expressions, conditional expressions, and lambda expressions (no assignment or def statements). <em>Note in particular that you are not allowed to use <code>make_anonymous_factorial</code> in your return expression.</em> The <code>sub</code> and <code>mul</code> functions from the <code>operator</code> module are the only built-in functions required to solve this problem:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#007020;font-weight:bold">from</span> <span style="color:#0e84b5;font-weight:bold">operator</span> <span style="color:#007020;font-weight:bold">import</span> sub, mul
+
+<span style="color:#007020;font-weight:bold">def</span> <span style="color:#06287e">make_anonymous_factorial</span>():
+    <span style="color:#4070a0">&#34;&#34;&#34;Return the value of an expression that computes factorial.
+</span><span style="color:#4070a0">
+</span><span style="color:#4070a0">    &gt;&gt;&gt; make_anonymous_factorial()(5)
+</span><span style="color:#4070a0">    120
+</span><span style="color:#4070a0">    &gt;&gt;&gt; from construct_check import check
+</span><span style="color:#4070a0">    &gt;&gt;&gt; # ban any assignments or recursion
+</span><span style="color:#4070a0">    &gt;&gt;&gt; check(HW_SOURCE_FILE, &#39;make_anonymous_factorial&#39;, [&#39;Assign&#39;, &#39;AugAssign&#39;, &#39;FunctionDef&#39;, &#39;Recursion&#39;])
+</span><span style="color:#4070a0">    True
+</span><span style="color:#4070a0">    &#34;&#34;&#34;</span>
+    <span style="color:#007020;font-weight:bold">return</span> <span style="color:#4070a0">&#39;YOUR_EXPRESSION_HERE&#39;</span></code></pre></div>
+<p>问题的核心在于：在没有函数名的情况下，如何在递归中调用这个函数呢？</p>
+
+<p>在思考后，我采取了High-order Function的方法，定义一个将自身作为参数的函数。从更深层次的角度来讲，这不过是将“函数”的Abstraction程度降低了一层，讲“函数寻址”这一行为显式地实现了。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#007020;font-weight:bold">from</span> <span style="color:#0e84b5;font-weight:bold">operator</span> <span style="color:#007020;font-weight:bold">import</span> sub, mul
+
+<span style="color:#007020;font-weight:bold">def</span> <span style="color:#06287e">make_anonymous_factorial</span>():
+    <span style="color:#007020;font-weight:bold">def</span> <span style="color:#06287e">function</span>(x, function):
+    	<span style="color:#007020;font-weight:bold">if</span>(x <span style="color:#666">==</span> <span style="color:#40a070">1</span>):
+    		<span style="color:#007020;font-weight:bold">return</span> <span style="color:#40a070">1</span>
+        <span style="color:#007020;font-weight:bold">else</span>:
+            <span style="color:#007020;font-weight:bold">return</span> function(x <span style="color:#666">-</span> <span style="color:#40a070">1</span>, function) <span style="color:#666">*</span> x
+    <span style="color:#007020;font-weight:bold">return</span> <span style="color:#007020;font-weight:bold">lambda</span> n : function(n, function)</code></pre></div>
+<p>经验证，结果正确。只不过题目要求不能出现def函数的行为，因而我们将<code>function(x, function)</code>函数改写为lambda形式：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#007020;font-weight:bold">lambda</span> x, function : <span style="color:#40a070">1</span> <span style="color:#007020;font-weight:bold">if</span> x <span style="color:#666">==</span> <span style="color:#40a070">1</span> <span style="color:#007020;font-weight:bold">else</span> x <span style="color:#666">*</span> function(x <span style="color:#666">-</span> <span style="color:#40a070">1</span>, function)</code></pre></div>
+<p>因而我们可以这样完成这道题目：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#007020;font-weight:bold">from</span> <span style="color:#0e84b5;font-weight:bold">operator</span> <span style="color:#007020;font-weight:bold">import</span> sub, mul
+
+<span style="color:#007020;font-weight:bold">def</span> <span style="color:#06287e">make_anonymous_factorial</span>():
+    <span style="color:#007020;font-weight:bold">return</span> <span style="color:#007020;font-weight:bold">lambda</span> n : (<span style="color:#007020;font-weight:bold">lambda</span> x, function : <span style="color:#40a070">1</span> <span style="color:#007020;font-weight:bold">if</span> x <span style="color:#666">==</span> <span style="color:#40a070">1</span> <span style="color:#007020;font-weight:bold">else</span> x <span style="color:#666">*</span> function(x <span style="color:#666">-</span> <span style="color:#40a070">1</span>, function))(n, <span style="color:#007020;font-weight:bold">lambda</span> x, function : <span style="color:#40a070">1</span> <span style="color:#007020;font-weight:bold">if</span> x <span style="color:#666">==</span> <span style="color:#40a070">1</span> <span style="color:#007020;font-weight:bold">else</span> x <span style="color:#666">*</span> function(x <span style="color:#666">-</span> <span style="color:#40a070">1</span>, function))</code></pre></div>
+<p>经验证，结果正确。</p>
+
+        ]]>
+      </description>
+    </item>
+    
   </channel>
 </rss>
