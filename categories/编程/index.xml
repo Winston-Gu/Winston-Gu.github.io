@@ -5,8 +5,56 @@
     <description>Recent content in 编程 on 介涟</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 03 Feb 2022 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 04 Mar 2022 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://valhallas.me/categories/%E7%BC%96%E7%A8%8B/" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>CSAPP随想：IEEE754标准浮点数表示中“implied leading 1”方法</title>
+      <link>https://valhallas.me/blogs/2022/03/csapp%E9%9A%8F%E6%83%B3ieee754%E6%A0%87%E5%87%86%E6%B5%AE%E7%82%B9%E6%95%B0%E8%A1%A8%E7%A4%BA%E4%B8%ADimplied-leading-1%E6%96%B9%E6%B3%95/</link>
+      <pubDate>Fri, 04 Mar 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://valhallas.me/blogs/2022/03/csapp%E9%9A%8F%E6%83%B3ieee754%E6%A0%87%E5%87%86%E6%B5%AE%E7%82%B9%E6%95%B0%E8%A1%A8%E7%A4%BA%E4%B8%ADimplied-leading-1%E6%96%B9%E6%B3%95/</guid>
+      <description>
+        <![CDATA[
+        
+
+<p>近日，在阅读<a href="https://csapp.cs.cmu.edu/" rel="noreferrer" target="_blank">CSAPP</a>时，在介绍到了浮点数IEEE754标准时，我遇到了这样一个问题。</p>
+
+<h2 id="前情提要">前情提要</h2>
+
+<p>本文假设读者对IEEE754中浮点数的标准已有了解，供参考用，罗列部分相关内容如下（来源：<a href="https://csapp.cs.cmu.edu/" rel="noreferrer" target="_blank">CSAPP</a>）：</p>
+
+<p>The IEEE floating-point standard represents a number in a form  $V=(-1)^{s} \times M \times 2^{E}$:</p>
+
+<ul>
+<li>The $\operatorname{sign} s$ determines whether the number is negative $(s=1)$ or positive $(s=0)$​, where the interpretation of the sign bit for numeric value 0 is handled as a special case.<br /></li>
+<li>The significand  $M$ is a fractional binary number that ranges either between 1  and $2-\epsilon$ or between 0 and $1-\epsilon$.</li>
+<li>The exponent $E$ weights the value by a (possibly negative) power of 2</li>
+</ul>
+
+<p><img src="https://cdn.jsdelivr.net/gh/Winston-Gu/Image_Base@main/image-20220304182808513.png" alt="image-20220304182808513" /></p>
+
+<p>In the single-precision floating-point format (a <code>float</code> in C), fields s, exp, and frac are 1, k = 8, and n = 23 bits each, yielding a 32- bit representation. In the double-precision floating-point format (a <code>double</code> in C), fields s, exp, and frac are 1, k = 11, and n = 52 bits each, yielding a 64-bit representation.</p>
+
+<h2 id="问题描述">问题描述</h2>
+
+<p>书中对$frac$的实现描述如下：</p>
+
+<blockquote>
+<p>The fraction field $frac$ is interpreted as representing the fractional value $f$, where $0 \leq f&lt;1$, having binary representation $0 . f<em>{n-1} \cdots f</em>{1} f<em>{0}$, that is with binary point to the left of the most significant bit. The significand is defined to be $M=1+f$.  This is sometimes called an <strong>implied leading 1</strong> representation, because we can view M to be the number with binary representation $1. f</em>{n-1} f<em>{n-2} \cdots f</em>{0}$. This representation is a trick for getting an additional bit of precision for free, since we can always adjust the exponent $E$ so that siginificand $M$ is in the range $1 \leq M&lt;2$(assuming there is no overflow). We therefore do not need to explicitly represent the leading bit, since it always equals 1.</p>
+</blockquote>
+
+<p>然而，我并没有很快速地理解所谓“<strong>implied leading 1</strong> representation”的原理与优势。</p>
+
+<h2 id="思考与解决">思考与解决</h2>
+
+<p>在经历一些举例与演算后，我发现这一问题可以有一个更直观的阐释：</p>
+
+<p>为什么这里说We can always adjust the exponent $E$ so that siginificand $M$ is in the range $1 \leq M&lt;2$(assuming there is no overflow)呢？一个更直观的解释是这样的：由于符号位是在第一位，剩余的位数表达的总是这个浮点数的绝对值，而<strong>二进制</strong>的浮点数总能表示成$10101101\cdot10100010 $这类用小数点分割的由0、1构成的序列的模式，同时第一个数字一定是1（如果是0的话可以直接将其省略）。而根据IEEE754标准，浮点数的表示方法是$V=(-1)^{s} \times M \times 2^{E}$，省略第一位的符号位，我们可以将$M \times 2^{E}$的形式用另一种方式理解：M的浮点数进行位操作向左移$E$位，使第一个数字（即数字“1”）的后面为小数点，更形象的，这种操作跟我们在十进制中常用的科学计数法转换时进行的手动移位操作类似，因而$M$的范围一定是 $1 \leq M&lt;2$了，我们也就可以通过“implied leading 1”这种方式来获得1bit的富余。</p>
+
+        ]]>
+      </description>
+    </item>
     
     <item>
       <title>一个关于lambda函数与递归的有趣问题</title>
@@ -58,54 +106,6 @@
 <span style="color:#007020;font-weight:bold">def</span> <span style="color:#06287e">make_anonymous_factorial</span>():
     <span style="color:#007020;font-weight:bold">return</span> <span style="color:#007020;font-weight:bold">lambda</span> n : (<span style="color:#007020;font-weight:bold">lambda</span> x, function : <span style="color:#40a070">1</span> <span style="color:#007020;font-weight:bold">if</span> x <span style="color:#666">==</span> <span style="color:#40a070">1</span> <span style="color:#007020;font-weight:bold">else</span> x <span style="color:#666">*</span> function(x <span style="color:#666">-</span> <span style="color:#40a070">1</span>, function))(n, <span style="color:#007020;font-weight:bold">lambda</span> x, function : <span style="color:#40a070">1</span> <span style="color:#007020;font-weight:bold">if</span> x <span style="color:#666">==</span> <span style="color:#40a070">1</span> <span style="color:#007020;font-weight:bold">else</span> x <span style="color:#666">*</span> function(x <span style="color:#666">-</span> <span style="color:#40a070">1</span>, function))</code></pre></div>
 <p>经验证，结果正确。</p>
-
-        ]]>
-      </description>
-    </item>
-    
-    <item>
-      <title>CSAPP随想：IEEE754标准浮点数表示中“implied leading 1”方法</title>
-      <link>https://valhallas.me/blogs/1/01/csapp%E9%9A%8F%E6%83%B3ieee754%E6%A0%87%E5%87%86%E6%B5%AE%E7%82%B9%E6%95%B0%E8%A1%A8%E7%A4%BA%E4%B8%ADimplied-leading-1%E6%96%B9%E6%B3%95/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://valhallas.me/blogs/1/01/csapp%E9%9A%8F%E6%83%B3ieee754%E6%A0%87%E5%87%86%E6%B5%AE%E7%82%B9%E6%95%B0%E8%A1%A8%E7%A4%BA%E4%B8%ADimplied-leading-1%E6%96%B9%E6%B3%95/</guid>
-      <description>
-        <![CDATA[
-        
-
-<p>近日，在阅读<a href="https://csapp.cs.cmu.edu/" rel="noreferrer" target="_blank">CSAPP</a>时，在介绍到了浮点数IEEE754标准时，我遇到了这样一个问题。</p>
-
-<h2 id="前情提要">前情提要</h2>
-
-<p>本文假设读者对IEEE754中浮点数的标准已有了解，供参考用，罗列部分相关内容如下（来源：<a href="https://csapp.cs.cmu.edu/" rel="noreferrer" target="_blank">CSAPP</a>）：</p>
-
-<p>The IEEE floating-point standard represents a number in a form  $V=(-1)^{s} \times M \times 2^{E}$:</p>
-
-<ul>
-<li>The $\operatorname{sign} s$ determines whether the number is negative $(s=1)$ or positive $(s=0)$​, where the interpretation of the sign bit for numeric value 0 is handled as a special case.<br /></li>
-<li>The significand  $M$ is a fractional binary number that ranges either between 1  and $2-\epsilon$ or between 0 and $1-\epsilon$.</li>
-<li>The exponent $E$ weights the value by a (possibly negative) power of 2</li>
-</ul>
-
-<p><img src="https://cdn.jsdelivr.net/gh/Winston-Gu/Image_Base@main/image-20220304182808513.png" alt="image-20220304182808513" /></p>
-
-<p>In the single-precision floating-point format (a <code>float</code> in C), fields s, exp, and frac are 1, k = 8, and n = 23 bits each, yielding a 32- bit representation. In the double-precision floating-point format (a <code>double</code> in C), fields s, exp, and frac are 1, k = 11, and n = 52 bits each, yielding a 64-bit representation.</p>
-
-<h2 id="问题描述">问题描述</h2>
-
-<p>书中对$frac$的实现描述如下：</p>
-
-<blockquote>
-<p>The fraction field $frac$ is interpreted as representing the fractional value $f$, where $0 \leq f&lt;1$, having binary representation $0 . f<em>{n-1} \cdots f</em>{1} f<em>{0}$, that is with binary point to the left of the most significant bit. The significand is defined to be $M=1+f$.  This is sometimes called an <strong>implied leading 1</strong> representation, because we can view M to be the number with binary representation $1. f</em>{n-1} f<em>{n-2} \cdots f</em>{0}$. This representation is a trick for getting an additional bit of precision for free, since we can always adjust the exponent $E$ so that siginificand $M$ is in the range $1 \leq M&lt;2$(assuming there is no overflow). We therefore do not need to explicitly represent the leading bit, since it always equals 1.</p>
-</blockquote>
-
-<p>然而，我并没有很快速地理解所谓“<strong>implied leading 1</strong> representation”的原理与优势。</p>
-
-<h2 id="思考与解决">思考与解决</h2>
-
-<p>在经历一些举例与演算后，我发现这一问题可以有一个更直观的阐释：</p>
-
-<p>为什么这里说We can always adjust the exponent $E$ so that siginificand $M$ is in the range $1 \leq M&lt;2$(assuming there is no overflow)呢？一个更直观的解释是这样的：由于符号位是在第一位，剩余的位数表达的总是这个浮点数的绝对值，而<strong>二进制</strong>的浮点数总能表示成$10101101\cdot10100010 $这类用小数点分割的由0、1构成的序列的模式，同时第一个数字一定是1（如果是0的话可以直接将其省略）。而根据IEEE754标准，浮点数的表示方法是$V=(-1)^{s} \times M \times 2^{E}$，省略第一位的符号位，我们可以将$M \times 2^{E}$的形式用另一种方式理解：M的浮点数进行位操作向左移$E$位，使第一个数字（即数字“1”）的后面为小数点，更形象的，这种操作跟我们在十进制中常用的科学计数法转换时进行的手动移位操作类似，因而$M$的范围一定是 $1 \leq M&lt;2$了，我们也就可以通过“implied leading 1”这种方式来获得1bit的富余。</p>
 
         ]]>
       </description>
