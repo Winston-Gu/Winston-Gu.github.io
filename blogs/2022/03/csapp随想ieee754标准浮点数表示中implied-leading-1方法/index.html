@@ -62,7 +62,7 @@
         ],
         "datePublished": "2022-03-04",
         "dateModified": "2022-03-04",
-        "wordCount": "856",
+        "wordCount": "851",
         "keywords": [
             "CSAPP", "技术", "IEEE754"
         ],
@@ -202,7 +202,7 @@ if (window.location.hostname != "127.0.0.1" && window.location.hostname != "loca
 
 
 <strong>字数: </strong>
-856
+851
 </h3>
 
 
@@ -239,9 +239,11 @@ if (window.location.hostname != "127.0.0.1" && window.location.hostname != "loca
 
 <p>书中对$frac$的实现描述如下：</p>
 
-<blockquote>
-<p>The fraction field $frac$ is interpreted as representing the fractional value $f$, where $0 \leq f&lt;1$, having binary representation $0 . f<em>{n-1} \cdots f</em>{1} f<em>{0}$, that is with binary point to the left of the most significant bit. The significand is defined to be $M=1+f$.  This is sometimes called an <strong>implied leading 1</strong> representation, because we can view M to be the number with binary representation $1. f</em>{n-1} f<em>{n-2} \cdots f</em>{0}$. This representation is a trick for getting an additional bit of precision for free, since we can always adjust the exponent $E$ so that siginificand $M$ is in the range $1 \leq M&lt;2$(assuming there is no overflow). We therefore do not need to explicitly represent the leading bit, since it always equals 1.</p>
-</blockquote>
+<p>The fraction field $frac$ is interpreted as representing the fractional value $f$, where $0 \leq f&lt;1$, having binary representation $0.f_{n-1}\cdots f _{0}$, that is with binary point to the left of the most significant bit.</p>
+
+<p>The significand is defined to be $M=1+f$.  This is sometimes called an <strong>implied leading 1</strong> representation, because we can view M to be the number with binary representation $1.f_{n-1}\cdots f _{0}$</p>
+
+<p>This representation is a trick for getting an additional bit of precision for free, since we can always adjust the exponent $E$ so that siginificand $M$ is in the range $1 \leq M&lt;2$(assuming there is no overflow). We therefore do not need to explicitly represent the leading bit, since it always equals 1.</p>
 
 <p>然而，我并没有很快速地理解所谓“<strong>implied leading 1</strong> representation”的原理与优势。</p>
 
