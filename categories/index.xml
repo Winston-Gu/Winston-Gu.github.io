@@ -5,8 +5,21 @@
     <description>Recent content in Categories on 希文</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 04 Mar 2022 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 10 Jun 2022 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://valhallas.me/categories/" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>随笔</title>
+      <link>https://valhallas.me/categories/%E9%9A%8F%E7%AC%94/</link>
+      <pubDate>Fri, 10 Jun 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://valhallas.me/categories/%E9%9A%8F%E7%AC%94/</guid>
+      <description>
+        <![CDATA[
+        
+        ]]>
+      </description>
+    </item>
     
     <item>
       <title>编程</title>
@@ -40,19 +53,6 @@
       <pubDate>Mon, 24 Jan 2022 00:00:00 +0000</pubDate>
       
       <guid>https://valhallas.me/categories/%E5%BD%B1%E8%AF%84/</guid>
-      <description>
-        <![CDATA[
-        
-        ]]>
-      </description>
-    </item>
-    
-    <item>
-      <title>随笔</title>
-      <link>https://valhallas.me/categories/%E9%9A%8F%E7%AC%94/</link>
-      <pubDate>Mon, 24 Jan 2022 00:00:00 +0000</pubDate>
-      
-      <guid>https://valhallas.me/categories/%E9%9A%8F%E7%AC%94/</guid>
       <description>
         <![CDATA[
         
