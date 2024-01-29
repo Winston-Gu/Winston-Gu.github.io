@@ -80,6 +80,18 @@
   unicode-range: U+4E00-9FFF;
 }
 
+@font-face {
+  font-family: "Karim LT Regular";
+  font-style: normal;
+  font-weight: 400;
+  src: url("https://db.onlinewebfonts.com/t/679221f7a9b221dc97d009a64ab29e79.eot");
+  src: url("https://db.onlinewebfonts.com/t/679221f7a9b221dc97d009a64ab29e79.eot?#iefix")format("embedded-opentype"),
+  url("https://db.onlinewebfonts.com/t/679221f7a9b221dc97d009a64ab29e79.woff2")format("woff2"),
+  url("https://db.onlinewebfonts.com/t/679221f7a9b221dc97d009a64ab29e79.woff")format("woff"),
+  url("https://db.onlinewebfonts.com/t/679221f7a9b221dc97d009a64ab29e79.ttf")format("truetype"),
+  url("https://db.onlinewebfonts.com/t/679221f7a9b221dc97d009a64ab29e79.svg#Karim LT Regular")format("svg");
+}
+
 /* a {
   color: #1772d0;
   text-decoration: none;
